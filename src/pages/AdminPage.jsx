@@ -148,7 +148,7 @@ const AdminPage = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen pt-24">
       <h1 className="text-3xl font-bold text-accentRed mb-6">{editingCar ? 'Edit Car' : 'Add New Car'}</h1>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
+
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg">
         {['name', 'description', 'price', 'year', 'model', 'mileage'].map((field) => (
           <div key={field} className="mb-4">
@@ -199,7 +199,12 @@ const AdminPage = () => {
             {car.images.length > 0 && (
               <div className="mt-2">
                 {car.images.map((img, index) => (
-                  <img key={index} src={img} alt={`Car image ${index + 1}`} className="w-full h-48 object-cover mt-2" />
+                   <img
+                   key={index}
+                   src={img}
+                   alt={`ImageOf ${car.name}`}
+                   className="w-full h-48 object-cover mt-2"
+                 />
                 ))}
               </div>
             )}
