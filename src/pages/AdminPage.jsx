@@ -178,7 +178,7 @@ const AdminPage = () => {
           <button
             type="button"
             onClick={() => document.getElementById('images').click()}
-            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg"
+            className="w-full bg-accentRed text-white px-6 py-3 rounded-lg text-lg font-semibold"
           >
             Add More Images
           </button>
