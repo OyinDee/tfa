@@ -19,7 +19,11 @@ const LoginPage = () => {
         localStorage.setItem('token', response.data.token);
       navigate('/admin'); 
     } catch (error) {
-      setError('Invalid username or password');
+      if (error.response && error.response.data && error.response.data.message) {
+        setError(error.response.data.message); 
+      } else {
+        setError('Invalid username or password'); 
+      }
       console.error('Error logging in:', error);
     } finally {
       setLoading(false);
