@@ -18,7 +18,6 @@ const AdminPage = () => {
   const [cars, setCars] = useState([]);
   const [editingCar, setEditingCar] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(true);
   const navigate = useNavigate();
 
