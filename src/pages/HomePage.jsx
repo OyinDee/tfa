@@ -98,12 +98,17 @@ const HomePage = () => {
       )}
 
       <section className="bg-accentRed text-center py-12">
-        <h2 className="text-3xl font-semibold text-white mb-4">Get in Touch</h2>
-        <p className="text-lg text-white mb-6">Have any questions or need assistance? Contact us today!</p>
-        <Link to="/contact" className="bg-white text-accentRed px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-200 transition">
-          Contact Us
-        </Link>
-      </section>
+  <h2 className="text-3xl font-semibold text-white mb-4">Get in Touch</h2>
+  <p className="text-lg text-white mb-6">Have any questions or need assistance? Contact us today!</p>
+  <a
+    href="https://wa.me/2348035386391"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-white text-accentRed px-6 py-3 rounded-lg text-lg font-semibold hover:bg-gray-200 transition"
+  >
+    Contact Us
+  </a>
+</section>
     </div>
   );
 };
