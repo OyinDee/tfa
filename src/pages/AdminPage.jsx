@@ -12,7 +12,6 @@ const AdminPage = () => {
     price: '',
     year: '',
     model: '',
-    mileage: '',
   });
   const [images, setImages] = useState([]);
   const [cars, setCars] = useState([]);
@@ -65,7 +64,6 @@ const AdminPage = () => {
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
-
     const fileReaders = files.map(file => {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -76,10 +74,14 @@ const AdminPage = () => {
     });
 
     Promise.all(fileReaders).then(imageUrls => {
-      setImages(imageUrls);
+      setImages(prevImages => [...prevImages, ...imageUrls]);
     }).catch(err => {
       toast.error('Failed to read image files.');
     });
+  };
+
+  const handleImageRemove = (index) => {
+    setImages(images.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e) => {
@@ -97,7 +99,6 @@ const AdminPage = () => {
         await axios.post('/api/cars', {
           ...carDetails,
           images: images.length ? images : [],
-          timeout: 30000,
         });
         toast.success('Car added successfully!');
       }
@@ -108,7 +109,6 @@ const AdminPage = () => {
         price: '',
         year: '',
         model: '',
-        mileage: '',
       });
       setImages([]);
       setEditingCar(null);
@@ -127,7 +127,6 @@ const AdminPage = () => {
       price: car.price,
       year: car.year,
       model: car.model,
-      mileage: car.mileage,
     });
     setImages(car.images || []);
     setEditingCar(car);
@@ -150,7 +149,7 @@ const AdminPage = () => {
       <h1 className="text-3xl font-bold text-accentRed mb-6">{editingCar ? 'Edit Car' : 'Add New Car'}</h1>
 
       <form onSubmit={handleSubmit} className="bg-white p-6 rounded-lg shadow-lg">
-        {['name', 'description', 'price', 'year', 'model', 'mileage'].map((field) => (
+        {['name', 'description', 'price', 'year', 'model'].map((field) => (
           <div key={field} className="mb-4">
             <label htmlFor={field} className="block text-gray-700 mb-2 capitalize">
               {field.replace(/^\w/, (c) => c.toUpperCase())}
@@ -176,6 +175,36 @@ const AdminPage = () => {
             multiple
             className="w-full"
           />
+          <button
+            type="button"
+            onClick={() => document.getElementById('images').click()}
+            className="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg"
+          >
+            Add More Images
+          </button>
+        </div>
+        <div className="mb-4">
+          {images.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {images.map((img, index) => (
+                <div key={index} className="relative w-24 h-24">
+                  <img
+                    src={img}
+                    alt={`Car thumbnail ${index + 1}`}
+                    className="w-full h-full object-cover rounded"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => handleImageRemove(index)}
+                    className="absolute top-0 right-0 bg-red-500 text-white p-1 rounded-full"
+                    aria-label="Remove image"
+                  >
+                    &times;
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
         <button
           type="submit"
@@ -195,16 +224,15 @@ const AdminPage = () => {
             <p>Price: ${car.price}</p>
             <p>Year: {car.year}</p>
             <p>Model: {car.model}</p>
-            <p>Mileage: {car.mileage}</p>
             {car.images.length > 0 && (
               <div className="mt-2">
                 {car.images.map((img, index) => (
-                   <img
-                   key={index}
-                   src={img}
-                   alt={`ImageOf ${car.name}`}
-                   className="w-full h-48 object-cover mt-2"
-                 />
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`CarImage ${index + 1}`}
+                    className="w-full h-48 object-cover mt-2"
+                  />
                 ))}
               </div>
             )}

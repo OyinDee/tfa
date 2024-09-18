@@ -63,7 +63,7 @@ const CarDetailPage = () => {
           </p>
           <p className="text-gray-800 mb-2"><strong>Year:</strong> {car.year}</p>
           <p className="text-gray-800 mb-2"><strong>Model:</strong> {car.model}</p>
-          <p className="text-gray-800 mb-2"><strong>Mileage:</strong> {formatPrice(car.mileage)} miles</p>
+
         </div>
       </div>
 
