@@ -63,7 +63,7 @@ const HomePage = () => {
               <div key={car._id} className="border p-4 rounded-lg shadow-lg">
                 <img src={car.images[0] || '/images/default-car.jpg'} alt={car.name} className="h-48 w-full object-cover mb-4" />
                 <h3 className="text-xl font-bold text-accentBlack">{car.name}</h3>
-                <p className="text-gray-600">Brief description of the car. Great features and price.</p>
+                <p className="text-gray-600">{car.description}</p>
                 <Link to={`/car/${car._id}`} className="text-accentRed hover:underline mt-4 block">Learn More</Link>
               </div>
             ))}
